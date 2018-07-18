@@ -1,0 +1,10 @@
+.input {
+  display: block;
+  width: 50%;
+  height: 40px;
+  font-size: 18px;
+  margin: 40px auto 0;
+  border: none;
+  border-bottom: 2px solid cadetblue;
+  outline: none;
+}

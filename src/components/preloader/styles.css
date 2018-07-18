@@ -1,0 +1,34 @@
+.preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 100vw;
+  height: 100vh;
+  min-width: 100vw;
+  min-height: 100vh;
+  z-index: 100500;
+  background: white;
+}
+
+.preloader:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  height: 60px;
+  width: 60px;
+  margin-top: -30px;
+  margin-left: -30px;
+  border-radius: 50%;
+  border-top: 2px solid cadetblue;
+  border-right: 2px solid transparent;
+  animation: preloader 0.7s linear infinite;
+}
+
+@keyframes preloader {
+  to {
+    transform: rotate(360deg);
+  }
+}
