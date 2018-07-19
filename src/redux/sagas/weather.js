@@ -1,6 +1,8 @@
 import { put, call, takeEvery } from 'redux-saga/effects';
 import axios from '../../utils/axios';
 
+import objectToParams from '../../utils/objectToParams';
+
 import {
   weatherFetchData,
   weatherFetchDataFail,
@@ -13,7 +15,8 @@ export function* fetchData({ payload }) {
   yield put(showLoader());
 
   try {
-    const response = yield call(axios.get, `weather?q=${payload}`);
+    const params = objectToParams(payload);
+    const response = yield call(axios.get, `weather?${params}`);
 
     yield put(weatherFetchDataSuccess(response.data));
 

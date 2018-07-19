@@ -29,7 +29,11 @@ export default class Form extends Component {
           />
         </div>
 
-        <Button color="secondary" variant="contained" onClick={() => fetchWeatherData(query)}>
+        <Button
+          color="secondary"
+          variant="contained"
+          onClick={() => fetchWeatherData({ q: query })}
+        >
           Search
         </Button>
       </Paper>
