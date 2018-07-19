@@ -2,21 +2,29 @@ import { put, call, takeEvery } from 'redux-saga/effects';
 import axios from '../../utils/axios';
 
 import {
-	weatherFetchData,
-	weatherFetchDataFail,
-	weatherFetchDataSuccess
+  weatherFetchData,
+  weatherFetchDataFail,
+  weatherFetchDataSuccess
 } from '../modules/weather';
 
-export function* fetchData() {
-	try {
-		const response = yield call(axios.get, 'weather?lat=53.786082&lon=27.911289');
+import { showLoader, hideLoader } from '../modules/ui';
 
-		yield put(weatherFetchDataSuccess(response.data));
-	} catch (err) {
-		yield put(weatherFetchDataFail());
-	}
+export function* fetchData({ payload }) {
+  yield put(showLoader());
+
+  try {
+    const response = yield call(axios.get, `weather?q=${payload}`);
+
+    yield put(weatherFetchDataSuccess(response.data));
+
+    yield put(hideLoader());
+  } catch (err) {
+    yield put(weatherFetchDataFail());
+
+    yield put(hideLoader());
+  }
 }
 
-export default function* dogsSaga() {
-	yield takeEvery(weatherFetchData.toString(), fetchData);
+export default function* weatherSaga() {
+  yield takeEvery(weatherFetchData.toString(), fetchData);
 }

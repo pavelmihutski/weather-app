@@ -1,27 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
 
-import classes from './styles.css';
+import Button from '@material-ui/core/Button';
 
-const Button = props => {
-  const { onClick, children, className, ...rest } = props;
+export default function ButtonUI({ children, ...selfProps }) {
+  return <Button {...selfProps}>{children}</Button>;
+}
 
-  return (
-    <button {...rest} onClick={onClick} className={classnames(classes.button, className)}>
-      {children}
-    </button>
-  );
+ButtonUI.defaultProps = {
+  children: ''
 };
 
-Button.defaultProps = {
-  className: '',
+ButtonUI.propTypes = {
+  children: PropTypes.node
 };
-
-Button.propTypes = {
-  onClick: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
-  className: PropTypes.string,
-};
-
-export default Button;

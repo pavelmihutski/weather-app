@@ -1,25 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-import classes from './styles.css';
+import TextField from '@material-ui/core/TextField';
 
-const Input = props => {
-  const { value, onChange } = props;
-
+export default function Input(props) {
+  const { ...self } = props;
   return (
-    <input
-      type="text"
-      value={value}
-      onChange={onChange}
-      className={classes.input}
-      placeholder="Start typing for filtering breeds..."
+    <TextField
+      id="city"
+      label="City"
+      InputLabelProps={{
+        shrink: true
+      }}
+      fullWidth
+      {...self}
     />
   );
-};
-
-Input.propTypes = {
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-};
-
-export default Input;
+}

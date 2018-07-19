@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
@@ -9,14 +9,16 @@ import Main from './pages/main';
 import './styles.css';
 
 const App = () => (
-	<Provider store={store}>
-		<BrowserRouter>
-			<Switch>
-				<Route path="/" exact component={Main} />
-				<Route render={() => <h1>Not Found</h1>} />
-			</Switch>
-		</BrowserRouter>
-	</Provider>
+  <Fragment>
+    <Provider store={store}>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Main} />
+          <Route render={() => <h1>Not Found</h1>} />
+        </Switch>
+      </BrowserRouter>
+    </Provider>
+  </Fragment>
 );
 
 export default App;
