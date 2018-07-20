@@ -28,6 +28,7 @@ class Main extends Component {
     const {
       cities,
       snackBar,
+      fetchData,
       showModal,
       hideModal,
       deleteCity,
@@ -35,8 +36,7 @@ class Main extends Component {
       isModalOpen,
       hideSnackBar,
       errorMessage,
-      showingLoader,
-      fetchData
+      showingLoader
     } = this.props;
 
     return (
@@ -62,10 +62,10 @@ class Main extends Component {
 }
 
 const mapStateToProps = ({ ui, weather }) => ({
-  modalCityId: ui.modalCityId,
   cities: weather.data,
   snackBar: ui.snackBar,
   isModalOpen: ui.isModalOpen,
+  modalCityId: ui.modalCityId,
   errorMessage: ui.errorMessage,
   showingLoader: ui.showingLoader
 });
@@ -85,7 +85,7 @@ Main.propTypes = {
   fetchData: PropTypes.func.isRequired,
   hideModal: PropTypes.func.isRequired,
   deleteCity: PropTypes.func.isRequired,
-  modalCityId: PropTypes.shape(PropTypes.any).isRequired,
+  modalCityId: PropTypes.number.isRequired,
   isModalOpen: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   hideSnackBar: PropTypes.func.isRequired,
