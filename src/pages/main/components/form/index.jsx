@@ -15,24 +15,28 @@ export default class Form extends Component {
 
   handleChangeInput = e => this.setState({ query: e.target.value });
 
+  handelSubmit = e => {
+    e.preventDefault();
+    this.props.fetchData({ q: this.state.query });
+  };
+
   render() {
-    const { query } = this.state;
-    const { fetchData } = this.props;
-
     return (
-      <Paper className={classes.wrapper}>
-        <div className={classes.inputContainer}>
-          <Input
-            onChange={e => this.handleChangeInput(e)}
-            placeholder="Enter City and press &quot;Search&quot;"
-            className={classes.button}
-          />
-        </div>
+      <form noValidate onSubmit={this.handelSubmit} autoComplete="off">
+        <Paper className={classes.wrapper}>
+          <div className={classes.inputContainer}>
+            <Input
+              onChange={this.handleChangeInput}
+              placeholder="Enter City and press &quot;Search&quot;"
+              className={classes.button}
+            />
+          </div>
 
-        <Button color="secondary" variant="contained" onClick={() => fetchData({ q: query })}>
-          Search
-        </Button>
-      </Paper>
+          <Button color="secondary" variant="contained" type="submit">
+            Search
+          </Button>
+        </Paper>
+      </form>
     );
   }
 }
