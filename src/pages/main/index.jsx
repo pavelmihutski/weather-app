@@ -2,11 +2,13 @@ import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { hideSnackBar as hideSnackBarAction } from '../../redux/modules/ui';
 import { weatherFetchData, weatherDeleteCity } from '../../redux/modules/weather';
 
+import { uiShowModal, uiHideModal, uiHideSnackBar } from '../../redux/modules/ui';
+
 import Form from './components/form';
-import CitiesList from '../../components/cities-list';
+import CitiesList from './components/cities-list';
+
 import Preloader from '../../components/preloader';
 import Notification from '../../components/notification';
 
@@ -15,7 +17,7 @@ import classes from './styles.css';
 class Main extends Component {
   componentDidMount = () => {
     navigator.geolocation.getCurrentPosition(location => {
-      this.props.fetchWeatherData({
+      this.props.fetchData({
         lat: location.coords.latitude,
         lon: location.coords.longitude
       });
@@ -26,11 +28,15 @@ class Main extends Component {
     const {
       cities,
       snackBar,
+      showModal,
+      hideModal,
       deleteCity,
+      modalCityId,
+      isModalOpen,
       hideSnackBar,
       errorMessage,
       showingLoader,
-      fetchWeatherData
+      fetchData
     } = this.props;
 
     return (
@@ -39,9 +45,16 @@ class Main extends Component {
         {snackBar && <Notification hideSnackBar={hideSnackBar} errorMessage={errorMessage} />}
 
         <div className={classes.wrapper}>
-          <Form fetchWeatherData={fetchWeatherData} />
+          <Form fetchData={fetchData} />
 
-          <CitiesList cities={cities} deleteCity={deleteCity} />
+          <CitiesList
+            cities={cities}
+            showModal={showModal}
+            hideModal={hideModal}
+            deleteCity={deleteCity}
+            isModalOpen={isModalOpen}
+            modalCityId={modalCityId}
+          />
         </div>
       </Fragment>
     );
@@ -49,26 +62,34 @@ class Main extends Component {
 }
 
 const mapStateToProps = ({ ui, weather }) => ({
+  modalCityId: ui.modalCityId,
   cities: weather.data,
   snackBar: ui.snackBar,
+  isModalOpen: ui.isModalOpen,
   errorMessage: ui.errorMessage,
   showingLoader: ui.showingLoader
 });
 
 const mapDispatchToProps = dispatch => ({
+  showModal: payload => dispatch(uiShowModal(payload)),
+  hideModal: () => dispatch(uiHideModal()),
+  fetchData: payload => dispatch(weatherFetchData(payload)),
   deleteCity: payload => dispatch(weatherDeleteCity(payload)),
-  hideSnackBar: () => dispatch(hideSnackBarAction()),
-  fetchWeatherData: payload => dispatch(weatherFetchData(payload))
+  hideSnackBar: () => dispatch(uiHideSnackBar())
 });
 
 Main.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.any).isRequired,
   snackBar: PropTypes.bool.isRequired,
+  showModal: PropTypes.func.isRequired,
+  fetchData: PropTypes.func.isRequired,
+  hideModal: PropTypes.func.isRequired,
   deleteCity: PropTypes.func.isRequired,
+  modalCityId: PropTypes.shape(PropTypes.any).isRequired,
+  isModalOpen: PropTypes.bool.isRequired,
   errorMessage: PropTypes.string.isRequired,
   hideSnackBar: PropTypes.func.isRequired,
-  showingLoader: PropTypes.bool.isRequired,
-  fetchWeatherData: PropTypes.func.isRequired
+  showingLoader: PropTypes.bool.isRequired
 };
 
 export default connect(

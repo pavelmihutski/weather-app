@@ -38,7 +38,6 @@ class Notification extends Component {
               color="inherit"
               onClick={this.props.hideSnackBar}
               aria-label="Close"
-              className={classes.close}
             >
               <CloseIcon />
             </IconButton>

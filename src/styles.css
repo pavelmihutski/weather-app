@@ -1,12 +1,8 @@
 body {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-	background: #24c6dc; /* fallback for old browsers */
-	background: linear-gradient(
-		to right,
-		#514a9d,
-		#24c6dc
-	); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-	font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #24c6dc;
+  background: linear-gradient(to right, #514a9d, #24c6dc);
+  font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
 }

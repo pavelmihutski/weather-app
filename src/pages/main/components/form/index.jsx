@@ -17,7 +17,7 @@ export default class Form extends Component {
 
   render() {
     const { query } = this.state;
-    const { fetchWeatherData } = this.props;
+    const { fetchData } = this.props;
 
     return (
       <Paper className={classes.wrapper}>
@@ -29,11 +29,7 @@ export default class Form extends Component {
           />
         </div>
 
-        <Button
-          color="secondary"
-          variant="contained"
-          onClick={() => fetchWeatherData({ q: query })}
-        >
+        <Button color="secondary" variant="contained" onClick={() => fetchData({ q: query })}>
           Search
         </Button>
       </Paper>
@@ -42,5 +38,5 @@ export default class Form extends Component {
 }
 
 Form.propTypes = {
-  fetchWeatherData: PropTypes.func.isRequired
+  fetchData: PropTypes.func.isRequired
 };

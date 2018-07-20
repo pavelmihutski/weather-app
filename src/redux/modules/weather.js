@@ -31,7 +31,7 @@ export default handleActions(
     }),
     [weatherFetchDataSuccess]: (state, { payload }) => ({
       ...state,
-      data: state.data.concat(payload),
+      data: [payload].concat(state.data),
       fetching: false
     }),
 
