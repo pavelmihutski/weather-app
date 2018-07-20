@@ -9,7 +9,7 @@ import {
   weatherFetchDataSuccess
 } from '../modules/weather';
 
-import { showLoader, hideLoader } from '../modules/ui';
+import { showLoader, hideLoader, showSnackBar } from '../modules/ui';
 
 export function* fetchData({ payload }) {
   yield put(showLoader());
@@ -22,6 +22,13 @@ export function* fetchData({ payload }) {
 
     yield put(hideLoader());
   } catch (err) {
+    const error = err.response;
+    const { status } = error;
+
+    if (status === 400 || status === 404) {
+      yield put(showSnackBar(error.data.message));
+    }
+
     yield put(weatherFetchDataFail());
 
     yield put(hideLoader());

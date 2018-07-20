@@ -13,7 +13,7 @@ import classes from './styles.css';
 export default function cityCard({ city, index, deleteCity }) {
   const getWeahter = weather =>
     weather.map(i => (
-      <div className={classes.weatherContainer}>
+      <div className={classes.weatherContainer} key={Date.now()}>
         <img
           src={`http://openweathermap.org/img/w/${i.icon}.png`}
           alt="weather"
@@ -22,6 +22,8 @@ export default function cityCard({ city, index, deleteCity }) {
         <Typography variant="body1">{i.description}</Typography>
       </div>
     ));
+
+  console.log('render');
 
   return (
     <div className={classes.card}>
@@ -37,6 +39,7 @@ export default function cityCard({ city, index, deleteCity }) {
               className={classes.icon}
             />
           </Typography>
+
           <Typography variant="body1" component="p">
             Geo cords [{city.coord.lon}, {city.coord.lat}]
           </Typography>
@@ -60,5 +63,7 @@ export default function cityCard({ city, index, deleteCity }) {
 }
 
 cityCard.propTypes = {
-  city: PropTypes.arrayOf(PropTypes.any).isRequired
+  city: PropTypes.objectOf(PropTypes.any).isRequired,
+  index: PropTypes.number.isRequired,
+  deleteCity: PropTypes.func.isRequired
 };

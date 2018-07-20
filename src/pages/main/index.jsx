@@ -2,11 +2,13 @@ import React, { Fragment, Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
+import { hideSnackBar as hideSnackBarAction } from '../../redux/modules/ui';
 import { weatherFetchData, weatherDeleteCity } from '../../redux/modules/weather';
 
 import Form from './components/form';
+import CitiesList from '../../components/cities-list';
 import Preloader from '../../components/preloader';
-import CityCard from '../../components/cityCard';
+import Notification from '../../components/notification';
 
 import classes from './styles.css';
 
@@ -21,16 +23,25 @@ class Main extends Component {
   };
 
   render() {
-    const { cities, showingLoader, fetchWeatherData, deleteCity } = this.props;
+    const {
+      cities,
+      snackBar,
+      deleteCity,
+      hideSnackBar,
+      errorMessage,
+      showingLoader,
+      fetchWeatherData
+    } = this.props;
 
     return (
       <Fragment>
         {showingLoader && <Preloader />}
+        {snackBar && <Notification hideSnackBar={hideSnackBar} errorMessage={errorMessage} />}
 
         <div className={classes.wrapper}>
           <Form fetchWeatherData={fetchWeatherData} />
 
-          {cities.map((i, index) => <CityCard city={i} deleteCity={deleteCity} index={index} />)}
+          <CitiesList cities={cities} deleteCity={deleteCity} />
         </div>
       </Fragment>
     );
@@ -39,17 +50,23 @@ class Main extends Component {
 
 const mapStateToProps = ({ ui, weather }) => ({
   cities: weather.data,
+  snackBar: ui.snackBar,
+  errorMessage: ui.errorMessage,
   showingLoader: ui.showingLoader
 });
 
 const mapDispatchToProps = dispatch => ({
   deleteCity: payload => dispatch(weatherDeleteCity(payload)),
+  hideSnackBar: () => dispatch(hideSnackBarAction()),
   fetchWeatherData: payload => dispatch(weatherFetchData(payload))
 });
 
 Main.propTypes = {
   cities: PropTypes.arrayOf(PropTypes.any).isRequired,
+  snackBar: PropTypes.bool.isRequired,
   deleteCity: PropTypes.func.isRequired,
+  errorMessage: PropTypes.string.isRequired,
+  hideSnackBar: PropTypes.func.isRequired,
   showingLoader: PropTypes.bool.isRequired,
   fetchWeatherData: PropTypes.func.isRequired
 };
