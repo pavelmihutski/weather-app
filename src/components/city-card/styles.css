@@ -26,6 +26,7 @@
 .curr-temp {
   display: inline-block;
   padding: 0 10px;
+  max-height: 24px;
   margin-right: 10px;
 
   color: #fff;
@@ -47,4 +48,11 @@
 .delete-icon:hover {
   color: #f50057;
   cursor: pointer;
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  padding-right: 50px;
+  justify-content: space-between;
 }

@@ -7,7 +7,7 @@ import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-import { fToC } from '../../helpers/weatherConverter';
+import { fToC, numberToDate, numberToTime } from '../../helpers/weatherConverter';
 
 import classes from './styles.css';
 
@@ -34,14 +34,18 @@ export default function cityCard(props) {
           <DeleteForeverIcon className={classes.deleteIcon} onClick={() => showModal(index)} />
 
           <div>
-            <Typography variant="headline" component="p">
-              {city.name}, {city.sys.country}
-              <img
-                src={`http://openweathermap.org/images/flags/${city.sys.country.toLowerCase()}.png`}
-                alt="weather"
-                className={classes.icon}
-              />
-            </Typography>
+            <div className={classes.title}>
+              <Typography variant="headline" component="p">
+                {city.name}, {city.sys.country}
+                <img
+                  src={`http://openweathermap.org/images/flags/${city.sys.country.toLowerCase()}.png`}
+                  alt="weather"
+                  className={classes.icon}
+                />
+              </Typography>
+
+              <Typography variant="body1"> {numberToDate(city.dt)}</Typography>
+            </div>
 
             <Typography variant="body1" component="p">
               Geo cords [{city.coord.lon}, {city.coord.lat}]
@@ -54,7 +58,8 @@ export default function cityCard(props) {
 
               <Typography variant="body2" component="p">
                 Temperature from {fToC(city.main.temp_min)} to {fToC(city.main.temp_max)}, Clouds{' '}
-                {city.clouds.all} %, Winds {city.wind.speed} m/s, {city.main.pressure} hpa
+                {city.clouds.all} %, Winds {city.wind.speed} m/s, {city.main.pressure} hpa, Sunrise:{' '}
+                {numberToTime(city.sys.sunrise)}, Sunset: {numberToTime(city.sys.sunset)}.
               </Typography>
             </div>
           </div>
