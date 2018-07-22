@@ -4,9 +4,7 @@
   "description": "",
   "scripts": {
     "start": "webpack-dev-server --mode development --open --hot --history-api-fallback",
-    "build": "webpack --mode production",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "build": "webpack --mode production"
   },
   "author": "Pavel Mihutski",
   "license": "ISC",
@@ -15,8 +13,6 @@
     "@material-ui/icons": "^1.1.0",
     "axios": "^0.18.0",
     "classnames": "^2.2.5",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
